@@ -9,9 +9,6 @@ services:
       #   - type=local,src=/tmp/docker-cache
       # cache_to:
       #   - type=local,dest=/tmp/docker-cache,mode=max
-    
-    image: braindrive-document-ai:${IMAGE_TAG:-latest}
-
     ports:
       - "${PORT:-8080}:8080"
 
