@@ -10,7 +10,7 @@ services:
       # cache_to:
       #   - type=local,dest=/tmp/docker-cache,mode=max
     ports:
-      - "${PORT:-8080}:8080"
+      - "8080:8080"
 
     environment:
       # Authentication
