@@ -35,6 +35,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
@@ -44,8 +52,9 @@ jobs:
         uses: docker/setup-buildx-action@v3
         with:
           driver-opts: |
-            image=moby/buildkit:latest
+            image=moby/buildkit:buildx-stable-1
             network=host
+          buildkitd-flags: --debug
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
@@ -116,8 +125,9 @@ jobs:
           echo "${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Platforms:** \`linux/amd64, linux/arm64\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Pull command:**" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
           echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-  
