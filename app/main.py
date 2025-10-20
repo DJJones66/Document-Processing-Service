@@ -16,7 +16,8 @@ from .infrastructure.metrics import PrometheusMiddleware, metrics_endpoint
 from .config import settings
 # Import adapter classes
 from .adapters.token_service.tiktoken_service import TikTokenService
-from .adapters.document_processor.simple_spacy_layout import SimpleSpacyLayoutProcessor
+# from .adapters.document_processor.simple_spacy_layout import SimpleSpacyLayoutProcessor
+from .adapters.document_processor.docling_document_processor import DoclingDocumentProcessor
 from .adapters.auth_service.simple_auth_service import SimpleAuthService
 # Imports for routers
 from .api.routes.documents import router as documents_router
@@ -96,8 +97,11 @@ async def on_startup():
         token_service = TikTokenService()
         
         # Document processor - this will fail fast if spaCy model is not available
-        app.state.document_processor = SimpleSpacyLayoutProcessor(
-            spacy_model=settings.spacy_model,
+        # app.state.document_processor = SimpleSpacyLayoutProcessor(
+        #     spacy_model=settings.spacy_model,
+        #     token_service=token_service,
+        # )
+        app.state.document_processor = DoclingDocumentProcessor(
             token_service=token_service,
         )
         
