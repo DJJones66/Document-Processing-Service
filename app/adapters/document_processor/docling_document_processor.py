@@ -1,7 +1,6 @@
 import logging
 import os
-from pathlib import Path
-from typing import List, Dict, Any, Tuple, Optional
+from typing import List, Dict, Any, Tuple
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions
@@ -13,13 +12,14 @@ from ...core.domain.entities.document_chunk import DocumentChunk
 from ...core.domain.exceptions import DocumentProcessingError, InvalidDocumentTypeError
 from ...core.ports.token_service import TokenService
 
+from app.config import settings
 
 class DoclingModelManager:
     """Manages Docling model downloads and caching"""
     
     # Default models used by Docling
     REQUIRED_MODELS = [
-        "ds4sd/docling-layout-heron",  # Layout detection model
+        settings.DOCLING_MODEL_NAME,
     ]
     
     def __init__(self, logger: logging.Logger):
@@ -233,8 +233,8 @@ class DoclingDocumentProcessor(DocumentProcessor):
             # Convert document
             result = self.converter.convert(file_path)
             
-            # Extract text content
-            complete_text = result.document.export_to_text()
+            # Extract text content as markdown
+            complete_text = result.document.export_to_markdown()
             
             # Extract metadata
             metadata = {
