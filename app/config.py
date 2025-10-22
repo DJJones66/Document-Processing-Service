@@ -70,6 +70,13 @@ class Settings(BaseSettings):
     
     # spaCy settings
     spacy_model: str = "en_core_web_sm"
+
+    # Docling Model
+    DOCLING_MODEL_NAME: str = Field(
+        "ds4sd/docling-layout-heron",
+        env="DOCLING_MODEL_NAME",
+        description="The docling name of the specific model to use."
+    )
     
     # Performance
     max_concurrent_processes: int = 4
