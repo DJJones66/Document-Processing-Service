@@ -123,7 +123,7 @@ class DoclingDocumentProcessor(DocumentProcessor):
         # Initialize Docling converter with optimized settings
         self.converter = self._initialize_converter()
         
-        self.supported_types = ["pdf", "docx", "doc", "pptx", "html", "md"]
+        self.supported_types = settings.SUPPORTED_DOCUMENT_TYPES
         
         self.logger.info(
             f"Initialized DoclingDocumentProcessor with chunk_size={chunk_size}, "

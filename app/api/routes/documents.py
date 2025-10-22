@@ -23,31 +23,18 @@ logger = logging.getLogger(__name__)
 
 def determine_document_type(filename: str) -> DocumentType:
     """
-    Determine document type from file extension.
+    Determine document type from file extension using the DocumentType class method.
     Supports: PDF, DOCX, DOC, PPTX, HTML, MD
     """
-    ext = Path(filename).suffix.lower().lstrip(".")
+    doc_type = DocumentType.from_filename(filename)
     
-    # Map extensions to DocumentType enum
-    ext_mapping = {
-        "pdf": DocumentType.PDF,
-        "docx": DocumentType.DOCX,
-        "doc": DocumentType.DOC,
-        # "pptx": DocumentType.PPTX,
-        # "ppt": DocumentType.PPTX,
-        # "html": DocumentType.HTML,
-        # "htm": DocumentType.HTML,
-        # "md": DocumentType.MARKDOWN,
-        # "markdown": DocumentType.MARKDOWN,
-    }
-    
-    if ext not in ext_mapping:
-        supported_types = ", ".join(sorted(ext_mapping.keys()))
+    if doc_type == DocumentType.UNKNOWN:
+        supported_types = ", ".join(sorted(DocumentType.FILENAME_MAP.keys()))
         raise InvalidDocumentTypeError(
-            f"Unsupported file extension: .{ext}. Supported types: {supported_types}"
+            f"Unsupported file extension: {Path(filename).suffix}. Supported types: {supported_types}"
         )
     
-    return ext_mapping[ext]
+    return doc_type
 
 
 @router.post("/upload")

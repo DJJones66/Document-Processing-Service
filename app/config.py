@@ -59,7 +59,7 @@ class Settings(BaseSettings):
     max_file_size: int = 100 * 1024 * 1024  # 100MB
     temp_dir: str = "data/temp"
     upload_dir: str = "data/uploads"
-    supported_formats: List[str] = ["pdf", "docx", "doc", "txt"]
+    SUPPORTED_DOCUMENT_TYPES: List[str] = ["pdf", "docx", "doc", "pptx", "html", "md"]
     
     # Document processing
     default_chunking_strategy: ChunkingStrategy = ChunkingStrategy.HIERARCHICAL
