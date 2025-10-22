@@ -213,3 +213,5 @@ __marimo__/
 # Docker buildx
 .buildx-cache/
 .secrets
+
+tests/
