@@ -20,16 +20,35 @@ router = APIRouter()
 # Set up logger for this module
 logger = logging.getLogger(__name__)
 
+
 def determine_document_type(filename: str) -> DocumentType:
+    """
+    Determine document type from file extension.
+    Supports: PDF, DOCX, DOC, PPTX, HTML, MD
+    """
     ext = Path(filename).suffix.lower().lstrip(".")
-    if ext == "pdf":
-        return DocumentType.PDF
-    elif ext == "docx":
-        return DocumentType.DOCX
-    elif ext == "doc":
-        return DocumentType.DOC
-    else:
-        raise InvalidDocumentTypeError(f"Unsupported file extension: {ext}")
+    
+    # Map extensions to DocumentType enum
+    ext_mapping = {
+        "pdf": DocumentType.PDF,
+        "docx": DocumentType.DOCX,
+        "doc": DocumentType.DOC,
+        # "pptx": DocumentType.PPTX,
+        # "ppt": DocumentType.PPTX,
+        # "html": DocumentType.HTML,
+        # "htm": DocumentType.HTML,
+        # "md": DocumentType.MARKDOWN,
+        # "markdown": DocumentType.MARKDOWN,
+    }
+    
+    if ext not in ext_mapping:
+        supported_types = ", ".join(sorted(ext_mapping.keys()))
+        raise InvalidDocumentTypeError(
+            f"Unsupported file extension: .{ext}. Supported types: {supported_types}"
+        )
+    
+    return ext_mapping[ext]
+
 
 @router.post("/upload")
 async def upload_document(
@@ -60,8 +79,8 @@ async def upload_document(
         saved_filename = f"{new_id}{ext}"
         saved_path = collection_dir / saved_filename
         
+        # Save uploaded file
         try:
-            # Write file
             with open(saved_path, "wb") as out_file:
                 shutil.copyfileobj(file.file, out_file)
             logger.info(f"File saved to: {saved_path}")

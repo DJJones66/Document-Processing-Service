@@ -26,6 +26,15 @@ class AuthMethod(str, Enum):
 
 
 class Settings(BaseSettings):
+
+    # Pydantic model configuration
+    model_config = {
+        'extra': 'ignore',
+        'env_file': '.env',
+        'env_file_encoding': 'utf-8',
+        'validate_default': True,
+    }
+
     # App settings
     app_name: str = "BrainDrive Document AI"
     app_version: str = "0.1.0"
@@ -61,6 +70,13 @@ class Settings(BaseSettings):
     
     # spaCy settings
     spacy_model: str = "en_core_web_sm"
+
+    # Docling Model
+    DOCLING_MODEL_NAME: str = Field(
+        "ds4sd/docling-layout-heron",
+        env="DOCLING_MODEL_NAME",
+        description="The docling name of the specific model to use."
+    )
     
     # Performance
     max_concurrent_processes: int = 4
@@ -79,10 +95,6 @@ class Settings(BaseSettings):
     API_HOST: str = Field("0.0.0.0", env="API_HOST")
     API_PORT: int = Field(8000, env="API_PORT")
     DEBUG: bool = Field(False, env="DEBUG")
-    
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 
 settings = Settings()

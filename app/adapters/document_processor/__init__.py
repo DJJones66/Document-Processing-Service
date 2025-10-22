@@ -1,3 +1,3 @@
-from .simple_spacy_layout import SimpleSpacyLayoutProcessor
+from .docling_document_processor import DoclingDocumentProcessor
 
-__all__ = ["SimpleSpacyLayoutProcessor"]
+__all__ = ["DoclingDocumentProcessor"]

@@ -68,3 +68,9 @@ roadmap.md
 
 # Poetry
 # poetry.lock
+
+# Docker buildx
+.buildx-cache/
+
+# Spacy models
+spacy_models/
