@@ -1,20 +1,15 @@
-version: "3.9"
-
 services:
-  braindrive-document-ai:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        ENABLE_CUDA: ${ENABLE_CUDA:-false}
-      # BuildKit cache hints (requires BuildKit to be enabled)
-      cache_from:
-        - type=local,src=.buildx-cache
-      cache_to:
-        - type=local,dest=.buildx-cache,mode=max
+        BUILDKIT_INLINE_CACHE: 1
+    container_name: braindrive-docling-processor
+    env_file:
+      - .env
     ports:
       - "8080:8080"
-
     environment:
       - DISABLE_AUTH=${DISABLE_AUTH:-true}
       - AUTH_METHOD=${AUTH_METHOD:-api_key}
@@ -31,11 +26,10 @@ services:
       - ENABLE_CUDA=${ENABLE_CUDA:-false}
       - LOG_FORMAT=${LOG_FORMAT:-console}
       - LOG_FILE=${LOG_FILE:-/app/logs/app.log}
-
     volumes:
       - ../../persistent/document_processing/data:/app/data
       - ../../persistent/document_processing/logs:/app/logs
-      - .:/app  # Mount source code for development
+      # - .:/app  # Mount source code for development
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
