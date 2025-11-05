@@ -1,7 +1,6 @@
 # BrainDrive Document Processing Service
 
 [![License](https://img.shields.io/badge/License-MIT%20License-green.svg)](LICENSE)
-[![BrainDrive](https://img.shields.io/badge/BrainDrive-Plugin-purple.svg)](https://github.com/BrainDriveAI/BrainDrive-Core)
 
 BrainDrive Document Processing Service is a FastAPI-based microservice for parsing and chunking documents. It serves as the document ingestion component of [BrainDrive's Chat with Documents plugin](https://github.com/BrainDriveAI/BrainDrive-Chat-With-Docs-Plugin), which uses a Retrieval-Augmented Generation (RAG) pipeline.
 
