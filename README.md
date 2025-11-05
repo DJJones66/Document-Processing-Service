@@ -1,7 +1,11 @@
-# BrainDrive Document AI - Standalone Processing Service
+# BrainDrive Document Processing Service
 
-## Overview
-Standalone document processing API service following Clean Architecture principles. Processes documents and returns structured chunks with metadata. Features built-in authentication for secure deployment while maintaining simplicity for local development.
+[![License](https://img.shields.io/badge/License-MIT%20License-green.svg)](LICENSE)
+[![BrainDrive](https://img.shields.io/badge/BrainDrive-Plugin-purple.svg)](https://github.com/BrainDriveAI/BrainDrive-Core)
+
+BrainDrive Document Processing Service is a FastAPI-based microservice for parsing and chunking documents. It serves as the document ingestion component of [BrainDrive's Chat with Documents plugin](https://github.com/BrainDriveAI/BrainDrive-Chat-With-Docs-Plugin), which uses a Retrieval-Augmented Generation (RAG) pipeline.
+
+Can also be run as a standalone document processing API service following Clean Architecture principles. Processes documents and returns structured chunks with metadata. Features built-in authentication for secure deployment while maintaining simplicity for local development.
 
 ## 🚀 Quick Start
 
