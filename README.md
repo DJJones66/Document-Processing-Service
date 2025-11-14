@@ -246,49 +246,68 @@ PROCESSING_TIMEOUT=180
 
 ```
 Document-Processing-Service/
-├── app/
+├── app/                               # Application code
 │   ├── core/                          # Domain layer (business logic)
-│   │   ├── domain/
-│   │   │   ├── entities/              # Business entities
-│   │   │   ├── value_objects/         # Immutable value objects
-│   │   │   └── exceptions/            # Domain exceptions
+│   │   ├── domain/                    # Business entities, value objects, exceptions
 │   │   ├── ports/                     # Interfaces/contracts
-│   │   │   ├── document_processor.py  # Document processing contract
-│   │   │   └── auth_service.py        # Authentication contract
 │   │   └── use_cases/                 # Application business rules
-│   │       ├── process_document.py    # Document processing use case
-│   │       └── authenticate_user.py   # Authentication use case
 │   ├── adapters/                      # External service implementations
 │   │   ├── document_processor/        # Document processing adapters
 │   │   ├── token_service/             # Token counting services
 │   │   └── auth_service/              # Authentication implementations
-│   ├── api/                           # API layer
-│   │   ├── routes/                    # API endpoints
-│   │   └── deps.py                    # Dependency injection
-│   ├── infrastructure/                # Cross-cutting concerns
-│   │   ├── logging.py                 # Structured logging
-│   │   ├── metrics.py                 # Performance metrics
-│   │   └── middleware/                # Custom middleware
+│   ├── api/                           # API layer (routes, dependencies)
+│   ├── infrastructure/                # Cross-cutting concerns (logging, metrics)
 │   ├── config.py                      # Configuration management
 │   └── main.py                        # Application entry point
-├── docs/
-│   └── docker_deployment.md
-├── ngnix/
-│   ├── ngnix.conf
-│   └── conf.d/
-│       └── braindrive.conf
-├── prometheus/
-│   └── prometheus.yml
-├── docker-compose.yml
-├── docker-compose.prod.yml
-├── Dockerfile
+│
+├── docs/                              # Documentation
+│   ├── OWNERS-MANUAL.md              # Complete operations guide (40KB+)
+│   ├── AI-AGENT-GUIDE.md             # Guide for AI coding agents
+│   ├── README.md                      # Documentation overview
+│   ├── COMPOUNDING-SETUP-COMPLETE.md  # Verification checklist
+│   ├── decisions/                     # Architecture Decision Records (ADRs)
+│   │   ├── 000-template.md           # ADR template
+│   │   └── 001-docling-for-document-processing.md
+│   ├── failures/                      # Lessons learned (what NOT to do)
+│   ├── data-quirks/                   # Non-obvious system behavior
+│   │   ├── 001-windows-huggingface-symlinks.md
+│   │   ├── 002-git-commit-co-author.md
+│   │   └── 003-git-commit-message-format.md
+│   ├── integrations/                  # External service documentation
+│   │   └── docling.md                # Docling integration reference
+│   └── docker_deployment.md           # Docker deployment guide
+│
+├── tests/                             # Tests
+│   ├── document-upload.py            # Manual API test client
+│   ├── document-upload.http          # HTTP test file
+│   └── file_samples/                 # Sample documents for testing
+│
+├── FOR-AI-CODING-AGENTS.md           # Architecture guide for AI agents
+├── docker-compose.yml                 # Docker Compose configuration
+├── docker-compose.prod.yml            # Production Docker Compose
+├── Dockerfile                         # Docker image definition
 ├── generate_keys.sh                   # Key generation (Linux/macOS)
 ├── generate_keys.ps1                  # Key generation (Windows)
-├── pyproject.toml                     # Poetry configuration
-├── .env.local                         # Environment variables template
-├── .env.production                    # Environment variables template
+├── pyproject.toml                     # Poetry dependencies
+├── .env.local                         # Local dev environment template
+├── .env.production                    # Production environment template
 └── README.md                          # This file
 ```
+
+### 📚 Documentation Guide
+
+**For Developers:**
+- Start with [`FOR-AI-CODING-AGENTS.md`](FOR-AI-CODING-AGENTS.md) for architecture and patterns
+- Check [`docs/decisions/`](docs/decisions/) for past architectural decisions
+
+**For Operators:**
+- Read [`docs/OWNERS-MANUAL.md`](docs/OWNERS-MANUAL.md) for complete operations guide
+- Covers deployment, monitoring, troubleshooting, scaling, disaster recovery
+
+**For AI Agents:**
+- See [`FOR-AI-CODING-AGENTS.md`](FOR-AI-CODING-AGENTS.md) for architecture guide
+- See [`docs/AI-AGENT-GUIDE.md`](docs/AI-AGENT-GUIDE.md) for compounding engineering workflow
+- Search `docs/` for past decisions, failures, quirks before implementing
 
 ## 🏗️ Key Features
 

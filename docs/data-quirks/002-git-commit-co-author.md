@@ -226,7 +226,7 @@ If team decides to allow AI co-authors:
 ```
 feat: add comprehensive documentation system
 
-Add FOR-AI-CODING-AGENTS.md, OWNERS-MANUAL.md, and Compounding Engineering
+Add FOR-AI-CODING-AGENTS.md, docs/OWNERS-MANUAL.md, and Compounding Engineering
 knowledge management system with ADRs, failure logs, and quirks.
 
 Closes #2

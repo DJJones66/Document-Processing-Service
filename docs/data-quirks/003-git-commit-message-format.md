@@ -195,7 +195,7 @@ build:    Build system changes
 ### ❌ Bad: Everything in subject line
 
 ```
-docs: add comprehensive documentation and Compounding Engineering system including CLAUDE.md rename to FOR-AI-CODING-AGENTS.md, OWNERS-MANUAL.md operations guide with 16 sections, and complete knowledge management system
+docs: add comprehensive documentation and Compounding Engineering system including CLAUDE.md rename to FOR-AI-CODING-AGENTS.md, docs/OWNERS-MANUAL.md operations guide with 16 sections, and complete knowledge management system
 ```
 
 **Problems:**
@@ -211,7 +211,7 @@ docs: add comprehensive documentation and Compounding system
 
 Add complete documentation suite including:
 - FOR-AI-CODING-AGENTS.md: Architecture & development guide (15KB)
-- OWNERS-MANUAL.md: Operations manual (40KB, 16 sections)
+- docs/OWNERS-MANUAL.md: Operations manual (40KB, 16 sections)
 - Compounding Engineering: Knowledge management system
 
 Includes ADRs, failure logs, data quirks, and integration docs.
@@ -244,7 +244,7 @@ Updated all the files and added comprehensive documentation including the owner'
 docs: add owner's manual and architecture guide
 
 Add comprehensive operational and development documentation:
-- OWNERS-MANUAL.md with 16 sections covering ops, deployment,
+- docs/OWNERS-MANUAL.md with 16 sections covering ops, deployment,
   monitoring, troubleshooting, and disaster recovery
 - FOR-AI-CODING-AGENTS.md with architecture patterns and
   development workflows
