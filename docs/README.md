@@ -58,7 +58,7 @@ grep -r "keyword" docs/data-quirks/ # Known gotchas
 ### For Human Developers
 
 **Onboarding:**
-1. Read `../CLAUDE.md` - Project architecture and patterns
+1. Read `../FOR-AI-CODING-AGENTS.md` - Project architecture and patterns
 2. Read `AI-AGENT-GUIDE.md` - Documentation philosophy
 3. Browse `decisions/` - Understand architectural choices
 4. Browse `data-quirks/` - Learn system gotchas
@@ -168,7 +168,7 @@ grep -r "keyword" docs/data-quirks/ # Known gotchas
 
 ## 🔗 Related Files
 
-- [`../CLAUDE.md`](../CLAUDE.md) - Main project documentation
+- [`../FOR-AI-CODING-AGENTS.md`](../FOR-AI-CODING-AGENTS.md) - Main project documentation
 - [`AI-AGENT-GUIDE.md`](./AI-AGENT-GUIDE.md) - Complete guide for AI agents
 - [`COMPOUNDING-SETUP-COMPLETE.md`](./COMPOUNDING-SETUP-COMPLETE.md) - Setup verification
 

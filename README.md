@@ -585,6 +585,32 @@ LOG_LEVEL=DEBUG
 
 This will provide detailed logging for troubleshooting issues.
 
+## 🤖 For AI Coding Agents
+
+**Start here:** [`FOR-AI-CODING-AGENTS.md`](FOR-AI-CODING-AGENTS.md)
+
+This project has comprehensive documentation for AI coding agents (Claude Code, GitHub Copilot, Cursor, Codeium, etc.):
+
+- **Architecture Guide:** Read `FOR-AI-CODING-AGENTS.md` for Clean Architecture patterns, development commands, and implementation details
+- **Knowledge Base:** Check `docs/` before implementing - contains ADRs, failures, data quirks, and integration docs
+- **Auto-Compound:** Document your decisions, failures, and discoveries in `docs/` for future developers
+
+**Quick commands:**
+```bash
+# Search past decisions
+grep -r "keyword" docs/decisions/
+
+# Check known mistakes
+grep -r "keyword" docs/failures/
+
+# Review quirks/gotchas
+grep -r "keyword" docs/data-quirks/
+```
+
+**See:** `docs/AI-AGENT-GUIDE.md` for complete compounding engineering workflow.
+
+---
+
 ## 🔗 Related Projects
 
 - [BrainDrive Main Application](https://github.com/BrainDriveAI/BrainDrive-Core) - The primary chat application

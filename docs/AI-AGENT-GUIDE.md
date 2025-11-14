@@ -62,7 +62,7 @@ ls docs/integrations/
 - Check `docs/data-quirks/` for known document format issues
 
 ### 2. Read Architecture Overview
-- Review `CLAUDE.md` for architecture patterns
+- Review `FOR-AI-CODING-AGENTS.md` for architecture patterns
 - Understand Clean Architecture layers (core → ports → adapters → api)
 - Follow established dependency injection patterns
 
@@ -332,7 +332,7 @@ finally:
    grep -r "feature_keyword" docs/
    ```
 
-2. **Check CLAUDE.md** for:
+2. **Check FOR-AI-CODING-AGENTS.md** for:
    - Architecture patterns to follow
    - Similar implementations
    - Configuration requirements
@@ -368,7 +368,7 @@ finally:
    - Hit a gotcha? → Document in failures or data-quirks
    - Integrated external service? → Create integration doc
 
-2. **Update CLAUDE.md if needed:**
+2. **Update FOR-AI-CODING-AGENTS.md if needed:**
    - Added new pattern?
    - Changed workflow?
    - New configuration option?
@@ -471,7 +471,7 @@ UPLOADS_DIR=/app/data/uploads
 - [ ] **Discovered data quirk?** → Documented it
 - [ ] **Hit error/mistake (>1 hour)?** → Created failure log
 - [ ] **Integrated external service?** → Created integration doc
-- [ ] **Changed workflows?** → Updated CLAUDE.md
+- [ ] **Changed workflows?** → Updated FOR-AI-CODING-AGENTS.md
 
 **If you answered YES to any "Knowledge Compounding" item but DIDN'T create documentation:**
 ⚠️ **STOP. Go back and document it now.**

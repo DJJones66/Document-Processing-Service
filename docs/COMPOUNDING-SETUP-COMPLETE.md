@@ -47,7 +47,7 @@ docs/
 
 **Verification:** ✅ All required sections present with actionable instructions
 
-### 2. CLAUDE.md
+### 2. FOR-AI-CODING-AGENTS.md
 **Purpose:** Main project instructions including Compounding Engineering
 
 **Key sections added:**
@@ -204,7 +204,7 @@ ls docs/integrations/               # Check integrations
 - [x] Your Goal as AI Agent
 - [x] Self-test scenarios
 
-**CLAUDE.md Content:**
+**FOR-AI-CODING-AGENTS.md Content:**
 - [x] Compounding Engineering section
 - [x] Auto-documentation triggers (all 4 types)
 - [x] Examples for each type
@@ -250,7 +250,7 @@ ls docs/integrations/               # Check integrations
 **Setup is complete when:**
 - [x] Directory structure exists
 - [x] AI-AGENT-GUIDE.md has all required sections
-- [x] CLAUDE.md references Compounding Engineering prominently
+- [x] FOR-AI-CODING-AGENTS.md references Compounding Engineering prominently
 - [x] ADR template is ready to use
 - [x] At least 1 example of each document type exists
 - [x] Instructions are actionable and specific
@@ -297,7 +297,7 @@ ls docs/integrations/               # Check integrations
 - `docs/decisions/001-docling-for-document-processing.md` - Real ADR
 - `docs/data-quirks/001-windows-huggingface-symlinks.md` - Real quirk
 - `docs/integrations/docling.md` - Complete integration doc
-- `CLAUDE.md` - Updated with Compounding Engineering section
+- `FOR-AI-CODING-AGENTS.md` - Updated with Compounding Engineering section
 
 **Philosophy:**
 > Every documented decision/failure saves 5-10 hours of future work.

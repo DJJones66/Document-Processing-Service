@@ -188,7 +188,7 @@ curl http://localhost:8080/health
 - **Dependency Injection:** Services injected via FastAPI dependencies
 - **Port-Adapter Pattern:** Interfaces define contracts, adapters implement
 
-**See:** `CLAUDE.md` for detailed architecture documentation.
+**See:** `FOR-AI-CODING-AGENTS.md` for detailed architecture documentation.
 
 ---
 
@@ -997,7 +997,7 @@ LOG_LEVEL=DEBUG
 ### Getting Help
 
 1. **Check documentation:**
-   - `CLAUDE.md` - Architecture and patterns
+   - `FOR-AI-CODING-AGENTS.md` - Architecture and patterns
    - `docs/AI-AGENT-GUIDE.md` - Complete guide
    - `docs/decisions/` - Architectural decisions
    - `docs/data-quirks/` - Known issues and workarounds
@@ -1132,7 +1132,7 @@ tar -czf docs-backup-$(date +%Y%m%d).tar.gz docs/
 
 **Documentation review:**
 - Update OWNERS-MANUAL.md (this file)
-- Update CLAUDE.md if architecture changed
+- Update FOR-AI-CODING-AGENTS.md if architecture changed
 - Review and update ADRs if decisions changed
 - Archive deprecated documentation
 
@@ -1745,7 +1745,7 @@ touch docs/integrations/service-name.md
 **Quarterly:**
 - Major documentation review
 - Update this OWNERS-MANUAL.md
-- Update CLAUDE.md if architecture changed
+- Update FOR-AI-CODING-AGENTS.md if architecture changed
 
 ---
 
@@ -1756,7 +1756,7 @@ touch docs/integrations/service-name.md
 **Day 1: Setup**
 - [ ] Clone repository
 - [ ] Read README.md
-- [ ] Read CLAUDE.md (architecture overview)
+- [ ] Read FOR-AI-CODING-AGENTS.md (architecture overview)
 - [ ] Setup local environment (Python, Poetry, Docker)
 - [ ] Run service locally
 - [ ] Test document upload
@@ -1818,7 +1818,7 @@ touch docs/integrations/service-name.md
 ### Training Resources
 
 **Internal:**
-- `CLAUDE.md` - Architecture and patterns
+- `FOR-AI-CODING-AGENTS.md` - Architecture and patterns
 - `docs/AI-AGENT-GUIDE.md` - Complete guide
 - `docs/decisions/` - Architectural decisions
 - `OWNERS-MANUAL.md` - This file
@@ -1854,7 +1854,7 @@ touch docs/integrations/service-name.md
 
 **What to backup:**
 - ✅ Configuration files (`.env.production`, docker-compose files)
-- ✅ Documentation (`docs/`, `CLAUDE.md`, etc.)
+- ✅ Documentation (`docs/`, `FOR-AI-CODING-AGENTS.md`, etc.)
 - ✅ Deployment manifests (Kubernetes YAML, Terraform, etc.)
 - ✅ Secrets (API keys, JWT secrets) - in secure secrets manager
 - ❌ Uploaded documents (deleted after processing, nothing to backup)
@@ -2066,7 +2066,7 @@ affinity:
 
 **Documentation:**
 - `README.md` - Quick start and overview
-- `CLAUDE.md` - Complete architecture guide
+- `FOR-AI-CODING-AGENTS.md` - Complete architecture guide
 - `OWNERS-MANUAL.md` - This file (operations guide)
 - `docs/AI-AGENT-GUIDE.md` - Development guide
 - `docs/decisions/` - Architectural decisions
@@ -2094,7 +2094,7 @@ affinity:
 ### Getting Help
 
 **For developers:**
-1. Check documentation (especially CLAUDE.md and AI-AGENT-GUIDE.md)
+1. Check documentation (especially FOR-AI-CODING-AGENTS.md and AI-AGENT-GUIDE.md)
 2. Search existing GitHub issues
 3. Ask in team chat/Slack
 4. Create GitHub issue with details

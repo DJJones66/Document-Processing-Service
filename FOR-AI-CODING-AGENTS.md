@@ -1,6 +1,6 @@
-# CLAUDE.md
+# FOR-AI-CODING-AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, GitHub Copilot, Cursor, Codeium, etc.) when working with code in this repository.
 
 ## Project Overview
 
@@ -223,9 +223,47 @@ Application code copied last (changes most frequently).
 3. Ensure Docling supports the format (it handles PDF, DOCX, PPTX, HTML, MD natively)
 4. Test extraction and chunking with sample files
 
-### Testing Document Processing
-Sample test files available in `tests/file_samples/`
-Test client in `tests/document-upload.py` shows how to use the API with authentication.
+### Testing
+
+#### Test Structure
+```
+tests/
+├── document-upload.py      # Manual API test client with authentication
+├── document-upload.http    # HTTP test file for REST clients
+└── file_samples/           # Sample documents for testing
+```
+
+#### Running Tests
+
+**Note:** This project currently uses manual integration tests. Formal pytest unit/integration tests to be added.
+
+**Manual API testing:**
+```bash
+# Using Python test client
+python tests/document-upload.py
+
+# Or using HTTP file (in VS Code with REST Client extension)
+# Open tests/document-upload.http and click "Send Request"
+```
+
+**API smoke test:**
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Document upload (requires service running)
+curl -X POST http://localhost:8000/documents/upload \
+  -H "X-API-Key: your-key" \
+  -F "file=@tests/file_samples/sample.pdf"
+```
+
+#### Test Samples
+Sample test files available in `tests/file_samples/` for verifying document processing:
+- PDF documents
+- DOCX documents
+- PPTX presentations
+- HTML files
+- Markdown files
 
 ## Environment Setup
 
