@@ -1,7 +1,7 @@
 # BrainDrive Document AI - Owner's Manual
 
 **Version:** 0.1.0
-**Last Updated:** 2024-11-14
+**Last Updated:** November 16, 2025
 **Audience:** Project owners, maintainers, team leads
 
 ---
@@ -2203,7 +2203,7 @@ Any other relevant information
 
 **Document Owner:** Project Maintainer
 **Last Reviewed:** 2025-11-14
-**Next Review:** 2025-02-14 (Quarterly)
+**Next Review:** 2026-02-14 (Quarterly)
 
 ---
 
