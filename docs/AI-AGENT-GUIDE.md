@@ -380,13 +380,13 @@ finally:
 ### Running Tests
 ```bash
 # All tests
-poetry run pytest
+python -m pytest
 
 # With coverage
-poetry run pytest --cov=app
+python -m pytest --cov=app
 
 # Specific test
-poetry run pytest tests/unit/test_processor.py::test_name
+python -m pytest tests/unit/test_processor.py::test_name
 ```
 
 ### Test File Location
@@ -400,7 +400,7 @@ tests/
 ### Manual Testing
 ```bash
 # Start server
-poetry run uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 
 # Test upload (see tests/document-upload.py for full example)
 curl -X POST http://localhost:8000/documents/upload \

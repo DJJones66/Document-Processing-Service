@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM python:3.12-slim-bookworm
+FROM python:3.11-slim-bookworm
 
 # Avoid interactive prompts & speed up builds
 ENV DEBIAN_FRONTEND=noninteractive \

@@ -64,8 +64,11 @@ BrainDrive Document AI is a **standalone document processing API service** that:
 git clone https://github.com/BrainDriveAI/Document-Processing-Service.git
 cd Document-Processing-Service
 
-# 2. Install dependencies
-poetry install
+# 2. Create venv (Python 3.11) and install dependencies
+python3.11 -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install --upgrade pip
+pip install -r requirements.txt
 
 # 3. Configure environment
 cp .env.local .env
@@ -76,7 +79,7 @@ cp .env.local .env
 ./generate_keys.sh --both  # Linux/macOS
 
 # 5. Run service
-poetry run uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8000
 
 # 6. Test
 curl -X POST http://localhost:8000/documents/upload \
@@ -168,7 +171,7 @@ curl http://localhost:8080/health
 ### Technology Stack
 
 **Core Framework:**
-- Python 3.12+
+- Python 3.11+
 - FastAPI 0.115+
 - Uvicorn (ASGI server)
 - Pydantic (validation & settings)
@@ -181,7 +184,7 @@ curl http://localhost:8080/health
 **Infrastructure:**
 - Docker (containerization)
 - Prometheus (metrics)
-- Poetry (dependency management)
+- Python venv + pip (dependency management)
 
 **Key Design Patterns:**
 - **Clean Architecture:** Separation of concerns across layers
@@ -198,7 +201,7 @@ curl http://localhost:8080/health
 
 **Development:**
 ```bash
-poetry run uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8000
 ```
 
 **Production (Docker):**
@@ -1077,11 +1080,11 @@ docker logs braindrive-doc-ai | grep "401\|403"
 
 **Update dependencies:**
 ```bash
-# Check for security updates
-poetry update
+# Update dependencies in the venv
+pip install --upgrade -r requirements.txt
 
 # Test in staging
-poetry run pytest
+python -m pytest
 
 # Deploy to production if tests pass
 ```
@@ -1279,10 +1282,10 @@ logger.debug(f"Document content: {content}")  # Never do this!
 **Regular Updates:**
 ```bash
 # Check for vulnerabilities
-poetry show --outdated
+pip list --outdated
 
 # Update packages
-poetry update
+pip install --upgrade -r requirements.txt
 
 # Or use automated tools
 pip install safety
@@ -1291,16 +1294,15 @@ safety check
 
 **Pin Versions:**
 ```toml
-# pyproject.toml
-[tool.poetry.dependencies]
-fastapi = ">=0.115.13,<0.116.0"  # Pin major.minor
-docling = ">=2.57.0,<3.0.0"      # Pin major version
+# requirements.txt
+fastapi==0.115.14
+docling==2.57.0
 ```
 
 **Audit Dependencies:**
 ```bash
 # Check for known vulnerabilities
-poetry export -f requirements.txt | safety check --stdin
+safety check
 ```
 
 ### Infrastructure Security
@@ -1315,7 +1317,7 @@ USER appuser
 # Only install required packages
 
 # ✅ Use official base images
-FROM python:3.12-slim-bookworm
+FROM python:3.11-slim-bookworm
 ```
 
 **Kubernetes Security:**

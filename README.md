@@ -12,7 +12,14 @@ Can also be run as a standalone document processing API service following Clean 
 ```bash
 git clone https://github.com/BrainDriveAI/Document-Processing-Service.git
 cd Document-Processing-Service
-poetry install
+
+# Create and activate a Python 3.11 venv
+python3.11 -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
@@ -59,7 +66,7 @@ chmod +x generate_keys.sh
 
 ### 4. Run the Service
 ```bash
-poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
 ```
 
 ### 5. Test the API
@@ -288,7 +295,7 @@ Document-Processing-Service/
 ├── Dockerfile                         # Docker image definition
 ├── generate_keys.sh                   # Key generation (Linux/macOS)
 ├── generate_keys.ps1                  # Key generation (Windows)
-├── pyproject.toml                     # Poetry dependencies
+├── pyproject.toml                     # Project metadata and dependency list
 ├── .env.local                         # Local dev environment template
 ├── .env.production                    # Production environment template
 └── README.md                          # This file
@@ -505,18 +512,15 @@ spec:
 
 ### Run Tests
 ```bash
-# Install dev dependencies
-poetry install --with dev
-
 # Run all tests
-poetry run pytest
+python -m pytest
 
 # Run with coverage
-poetry run pytest --cov=src
+python -m pytest --cov=src
 
 # Run specific test types
-poetry run pytest tests/unit/
-poetry run pytest tests/integration/
+python -m pytest tests/unit/
+python -m pytest tests/integration/
 ```
 
 ### Test Authentication

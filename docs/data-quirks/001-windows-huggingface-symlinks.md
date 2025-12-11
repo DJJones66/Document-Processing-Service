@@ -67,7 +67,7 @@ if os.name == 'nt':  # Windows
 **Test command:**
 ```bash
 # Try downloading a model
-poetry run python -c "from huggingface_hub import snapshot_download; snapshot_download('ds4sd/docling-layout-heron')"
+python -c "from huggingface_hub import snapshot_download; snapshot_download('ds4sd/docling-layout-heron')"
 ```
 
 If this fails with symlink errors, the quirk is present.
@@ -139,7 +139,7 @@ converter = DocumentConverter(
 ❌ **Don't run with admin privileges**
 ```bash
 # BAD: Security risk
-runas /user:Administrator "poetry run uvicorn app.main:app"
+runas /user:Administrator "uvicorn app.main:app"
 ```
 
 ❌ **Don't ignore the error**

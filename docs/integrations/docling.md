@@ -19,9 +19,9 @@ Docling is IBM Research's document processing library that converts various docu
 
 ### Installation
 ```bash
-poetry add docling[cpu]  # CPU-only version
+pip install "docling[cpu]"  # CPU-only version
 # or
-poetry add docling[gpu]  # GPU-accelerated (requires CUDA)
+pip install "docling[gpu]"  # GPU-accelerated (requires CUDA)
 ```
 
 ### Model Downloads

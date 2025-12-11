@@ -8,34 +8,34 @@ BrainDrive Document AI is a standalone document processing API service built wit
 
 ## Development Commands
 
-### Installation
+### Installation (Python 3.11, venv)
 ```bash
-poetry install
+python3.11 -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 ### Running the Service
 ```bash
 # Development mode with auto-reload
-poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
 
 # Or using the port from config (default 8000)
-poetry run uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ### Testing
 ```bash
-# Install dev dependencies
-poetry install --with dev
-
 # Run all tests
-poetry run pytest
+python -m pytest
 
 # Run with coverage
-poetry run pytest --cov=app
+python -m pytest --cov=app
 
 # Run specific test types
-poetry run pytest tests/unit/
-poetry run pytest tests/integration/
+python -m pytest tests/unit/
+python -m pytest tests/integration/
 ```
 
 ### Docker
