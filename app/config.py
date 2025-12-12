@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, field_validator
 from typing import Optional, List
 from enum import Enum
 
@@ -54,6 +54,16 @@ class Settings(BaseSettings):
     log_level: LogLevel = LogLevel.INFO
     log_format: str = "json"
     log_file: Optional[str] = "logs/app.log"
+    
+    @field_validator("log_level", mode="before")
+    @classmethod
+    def _normalize_log_level(cls, value):
+        """
+        Allow case-insensitive log level values (e.g., 'info' or 'Info').
+        """
+        if isinstance(value, str):
+            return value.upper()
+        return value
     
     # File processing
     max_file_size: int = 100 * 1024 * 1024  # 100MB
