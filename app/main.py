@@ -39,44 +39,11 @@ app.add_middleware(RequestLoggingMiddleware)
 # Add Prometheus metrics middleware
 app.add_middleware(PrometheusMiddleware)
 
-def build_cors_config():
-    """Build CORS settings; default is wide open for local testing."""
-    allow_any = os.getenv("CORS_ALLOW_ANY", "1").lower() in ("1", "true", "yes", "on")
-    if allow_any:
-        return ["*"], ".*", False
-
-    default_origins = [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3034",
-        "http://localhost:5273",
-        "http://127.0.0.1:5273",
-        "http://10.1.2.149:5273",
-    ]
-
-    env_origins = os.getenv("CORS_ORIGINS")
-    if env_origins:
-        default_origins.extend(
-            [origin.strip() for origin in env_origins.split(",") if origin.strip()]
-        )
-
-    origin_regex = os.getenv(
-        "CORS_ORIGIN_REGEX",
-        r"https?://(localhost|127\\.0\\.0\\.1|10\\.\d+\\.\d+\\.\d+|192\\.168\\.\d+\\.\d+|172\\.(1[6-9]|2\\d|3[0-1])\\.\d+\\.\d+)(:\\d+)?$",
-    )
-
-    allow_credentials = os.getenv("CORS_ALLOW_CREDENTIALS", "true").lower() in ("1", "true", "yes", "on")
-
-    unique_origins = list(dict.fromkeys(default_origins))
-    return unique_origins, origin_regex, allow_credentials
-
 # CORS (if frontend served separately)
-cors_origins, cors_origin_regex, cors_allow_credentials = build_cors_config()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
-    allow_origin_regex=cors_origin_regex,
-    allow_credentials=cors_allow_credentials,
+    allow_origins=["*"],  # Adjust in production
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
