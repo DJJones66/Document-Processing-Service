@@ -43,7 +43,8 @@ def build_cors_config():
     """Build CORS settings; default is wide open for local testing."""
     allow_any = os.getenv("CORS_ALLOW_ANY", "1").lower() in ("1", "true", "yes", "on")
     if allow_any:
-        return ["*"], ".*", False
+        # Reflect any origin (no hardcoded hosts) while allowing credentials
+        return [], ".*", True
 
     default_origins = [
         "http://localhost:5173",
