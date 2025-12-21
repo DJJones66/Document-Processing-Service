@@ -159,8 +159,15 @@ def _stop_by_search(markers: Iterable[str], timeout: float) -> bool:
     print(f"Found {len(matches)} candidate process(es). Attempting shutdown...")
     stopped_any = False
     for proc in matches:
-        print(f" - PID {proc.pid}: {' '.join(proc.cmdline())}")
-        stopped_any = _terminate_process(proc, timeout) or stopped_any
+        try:
+            cmdline = " ".join(proc.cmdline())
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            cmdline = "<process no longer available>"
+        print(f" - PID {proc.pid}: {cmdline}")
+        try:
+            stopped_any = _terminate_process(proc, timeout) or stopped_any
+        except psutil.NoSuchProcess:
+            stopped_any = True
     return stopped_any
 
 
