@@ -217,3 +217,5 @@ __marimo__/
 tests/
 designs/
 .env
+
+designs/
