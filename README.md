@@ -22,6 +22,20 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+#### Windows (PowerShell) using helper scripts
+```powershell
+# Optional: point to a specific Python (for example, your conda env)
+$env:PYTHON_BIN="C:\path\to\conda\env\python.exe"
+
+python .\service_scripts\create_venv.py
+python .\service_scripts\install_with_venv.py
+```
+
+Note: the helper scripts always create a local `.venv`. If you prefer to stay in an existing conda env, skip `create_venv.py` and install directly:
+```powershell
+python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+```
+
 ### 2. Configure Environment
 
 #### Local Development
