@@ -22,7 +22,7 @@ import psutil
 from venv_utils import REPO_ROOT
 
 DEFAULT_PIDFILE = REPO_ROOT / "data" / "service.pid"
-DEFAULT_PROCESS_MARKERS = ["uvicorn", "app.main:app", REPO_ROOT.name.lower()]
+DEFAULT_PROCESS_MARKERS = ["uvicorn", "app.main:app"]
 DEFAULT_SHUTDOWN_TIMEOUT = 15.0
 
 

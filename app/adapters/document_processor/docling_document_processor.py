@@ -34,6 +34,7 @@ class DoclingModelManager:
             # Disable symlinks on Windows to avoid permission errors
             if os.name == 'nt':  # Windows
                 os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
+                os.environ['HF_HUB_DISABLE_SYMLINKS'] = '1'
                 # Force huggingface_hub to not use symlinks
                 try:
                     from huggingface_hub import constants
@@ -50,11 +51,14 @@ class DoclingModelManager:
                 for model_name in self.REQUIRED_MODELS:
                     try:
                         self.logger.info(f"Ensuring model is cached: {model_name}")
-                        snapshot_download(
-                            repo_id=model_name,
-                            local_files_only=False,  # Download if not cached
-                            resume_download=True,
-                        )
+                        download_kwargs = {
+                            "repo_id": model_name,
+                            "local_files_only": False,  # Download if not cached
+                            "resume_download": True,
+                        }
+                        if os.name == "nt":
+                            download_kwargs["local_dir_use_symlinks"] = False
+                        snapshot_download(**download_kwargs)
                         self.logger.info(f"Model ready: {model_name}")
                     except Exception as e:
                         self.logger.warning(

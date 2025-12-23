@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import os
 import signal
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -30,7 +31,16 @@ RELOAD = os.environ.get("UVICORN_RELOAD", "").lower() in {"1", "true", "yes", "o
 def main() -> None:
     venv_dir = Path(ENV_NAME)
     if not venv_exists(venv_dir):
-        sys.exit(f"Venv not found at {venv_dir}. Run tests/create_venv.py first.")
+        sys.exit(f"Venv not found at {venv_dir}. Run service_scripts/create_venv.py first.")
+
+    env_path = REPO_ROOT / ".env"
+    if not env_path.exists():
+        example_env = REPO_ROOT / ".env.local.example"
+        if example_env.exists():
+            shutil.copyfile(example_env, env_path)
+            print(f"Created {env_path} from {example_env} for local startup.")
+        else:
+            sys.exit(f"{env_path} not found and no .env.local.example present.")
 
     venv_py = venv_python(venv_dir)
     cmd = [
@@ -50,7 +60,7 @@ def main() -> None:
     try:
         subprocess.check_call(cmd, cwd=REPO_ROOT)
     except subprocess.CalledProcessError as exc:
-        if exc.returncode in (-signal.SIGTERM, -signal.SIGINT):
+        if exc.returncode in (-signal.SIGTERM, -signal.SIGINT, signal.SIGTERM, signal.SIGINT):
             print("Service stopped.")
             return
         raise

@@ -14,6 +14,16 @@ DEFAULT_VENV_DIR = REPO_ROOT / os.environ.get("VENV_PATH", ".venv")
 PYTHON_BIN = os.environ.get("PYTHON_BIN", "python3.11")
 
 
+def _is_windowsapps_stub(path: str) -> bool:
+    if os.name != "nt":
+        return False
+    try:
+        parts = [part.lower() for part in Path(path).resolve().parts]
+    except OSError:
+        parts = [part.lower() for part in Path(path).parts]
+    return "windowsapps" in parts
+
+
 def find_python() -> str:
     """
     Resolve the Python executable to use for creating the venv.
@@ -21,13 +31,16 @@ def find_python() -> str:
     """
     candidates = [
         PYTHON_BIN,
+        sys.executable,
+        "python3.11",
         "python3",
         "python",
-        sys.executable,
     ]
     for candidate in candidates:
+        if not candidate:
+            continue
         resolved = shutil.which(str(candidate))
-        if resolved:
+        if resolved and not _is_windowsapps_stub(resolved):
             return resolved
     sys.exit("No suitable Python executable found. Set PYTHON_BIN to a Python 3.11 path.")
 
