@@ -37,7 +37,7 @@ def _load_env_file() -> None:
         print("python-dotenv is not installed; skipping .env reload.")
         return
 
-    load_dotenv(dotenv_path, override=True)
+    load_dotenv(dotenv_path, override=False)
     print(f"Loaded environment variables from {dotenv_path}")
 
 

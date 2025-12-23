@@ -159,3 +159,41 @@ python .\service_scripts\shutdown_with_venv.py
 ```
 
 Result: service started cleanly, model pre-download succeeded without symlink errors, health endpoint returned 200, and shutdown exited 0 without killing the shell.
+
+### Test run notes (restart script, win2 clone)
+Goal: validate `restart_with_venv.py` independently (stop + start) with the same test clone.
+
+Initial issue:
+- `restart_with_venv.py` loaded `.env` with `override=True`, which overwrote the runtime `API_PORT` and reset the service to 18080. That caused the health check on 18082 to fail.
+
+Fix applied:
+- `service_scripts/restart_with_venv.py` now calls `load_dotenv(..., override=False)` so explicit environment variables win.
+
+Final run commands (using background processes so the shell stays free):
+```powershell
+$env:API_HOST="127.0.0.1"
+$env:API_PORT="18082"
+
+# Start the service
+Start-Process -FilePath ".\.venv\Scripts\python.exe" -ArgumentList ".\service_scripts\start_with_venv.py" -WorkingDirectory (Get-Location) -NoNewWindow
+Invoke-RestMethod http://127.0.0.1:18082/health
+
+# Restart the service
+Start-Process -FilePath ".\.venv\Scripts\python.exe" -ArgumentList ".\service_scripts\restart_with_venv.py" -WorkingDirectory (Get-Location) -NoNewWindow
+Invoke-RestMethod http://127.0.0.1:18082/health
+
+# Stop the service
+python .\service_scripts\shutdown_with_venv.py
+```
+Result: restart kept the port override, health returned 200 after restart, and shutdown exited 0.
+
+## Repeatable full system test script
+Use the PowerShell script below to run create/install/start/health/restart/health/shutdown in one pass:
+
+```powershell
+.\service_scripts\windows_system_test.ps1 -CondaEnv BrainDriveDev
+```
+
+Notes:
+- The script finds a free port starting at 18081.
+- Logs are written to `data\test_start_stderr.log` and `data\test_restart_stderr.log`.
