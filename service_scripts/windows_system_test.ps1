@@ -12,6 +12,19 @@ $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $dataDir = Join-Path $repoRoot "data"
 New-Item -ItemType Directory -Force -Path $dataDir | Out-Null
 
+if ($CondaEnv -and (Get-Command conda -ErrorAction SilentlyContinue)) {
+    try {
+        $condaPython = (& conda run -n $CondaEnv python -c "import sys; print(sys.executable)" 2>$null).Trim()
+        if ($condaPython) {
+            $env:PYTHON_BIN = $condaPython
+        }
+    } catch {
+        Write-Host "Warning: Unable to resolve conda python for $CondaEnv; falling back to PATH." 
+    }
+}
+
+$env:VENV_PATH = ".venv"
+
 function Get-FreePort {
     param(
         [int]$Start,

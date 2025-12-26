@@ -16,6 +16,64 @@ import sys
 import time
 from pathlib import Path
 
+DEFAULT_DOCLING_MODEL = "ds4sd/docling-layout-heron"
+
+
+def _parse_env_file(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    values: dict = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if not key:
+            continue
+        values[key] = value.strip().strip('"').strip("'")
+    return values
+
+
+def _resolve_docling_model_name() -> str:
+    env_name = os.environ.get("DOCLING_MODEL_NAME")
+    if env_name:
+        return env_name
+    env_path = REPO_ROOT / ".env"
+    env_values = _parse_env_file(env_path)
+    if env_values.get("DOCLING_MODEL_NAME"):
+        return env_values["DOCLING_MODEL_NAME"]
+    fallback_env = REPO_ROOT / ".env.local.example"
+    env_values = _parse_env_file(fallback_env)
+    if env_values.get("DOCLING_MODEL_NAME"):
+        return env_values["DOCLING_MODEL_NAME"]
+    return DEFAULT_DOCLING_MODEL
+
+
+def _preload_docling_model_windows(venv_py: Path) -> None:
+    if os.name != "nt":
+        return
+    model_name = _resolve_docling_model_name()
+    if not model_name:
+        return
+    env = os.environ.copy()
+    env.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+    env.setdefault("HF_HUB_DISABLE_SYMLINKS", "1")
+    cmd = [
+        str(venv_py),
+        "-c",
+        (
+            "from huggingface_hub import snapshot_download;"
+            "snapshot_download(%r, local_dir_use_symlinks=False)"
+        )
+        % model_name,
+    ]
+    try:
+        print(f"Preloading Docling model on Windows: {model_name}")
+        subprocess.check_call(cmd, cwd=REPO_ROOT, env=env)
+    except subprocess.CalledProcessError as exc:
+        print(f"Warning: Docling model preload failed (will retry at runtime): {exc}")
+
 from venv_utils import DEFAULT_VENV_DIR, REPO_ROOT, venv_exists, venv_python
 
 
@@ -81,6 +139,8 @@ def main() -> None:
     # Use PyTorch CPU wheels index to avoid pulling CUDA dependencies by default.
     torch_index = "https://download.pytorch.org/whl/cpu"
     _install_requirements(venv_py, requirements, torch_index)
+
+    _preload_docling_model_windows(venv_py)
 
     print("\nDependencies installed into the venv.")
 
