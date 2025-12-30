@@ -50,7 +50,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-
+.cache/
 # Translations
 *.mo
 *.pot
@@ -217,5 +217,5 @@ __marimo__/
 tests/
 designs/
 .env
-
+.env.bak.*
 designs/

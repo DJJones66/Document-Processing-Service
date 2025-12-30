@@ -28,6 +28,36 @@ API_PORT = os.environ.get("API_PORT", "18080")
 RELOAD = os.environ.get("UVICORN_RELOAD", "").lower() in {"1", "true", "yes", "on"}
 
 
+def _set_windows_symlink_defenses() -> None:
+    if os.name != "nt":
+        return
+    os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+    os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS", "1")
+
+
+def _ensure_home_dir_env() -> None:
+    if os.name != "nt":
+        return
+    if os.environ.get("USERPROFILE") or os.environ.get("HOME"):
+        return
+    fallback = os.environ.get("LOCALAPPDATA") or os.environ.get("TEMP") or os.environ.get("TMP") or str(REPO_ROOT)
+    os.environ.setdefault("USERPROFILE", fallback)
+    os.environ.setdefault("HOME", fallback)
+
+
+def _set_hf_home() -> None:
+    if os.name != "nt":
+        return
+    if os.environ.get("HF_HOME"):
+        return
+    base = os.environ.get("LOCALAPPDATA") or os.environ.get("TEMP") or os.environ.get("TMP")
+    if not base:
+        base = os.environ.get("USERPROFILE") or os.environ.get("HOME") or str(REPO_ROOT)
+    hf_home = Path(base) / ".hf"
+    os.environ.setdefault("HF_HOME", str(hf_home))
+    os.environ.setdefault("HF_HUB_CACHE", str(hf_home / "hub"))
+
+
 def main() -> None:
     venv_dir = Path(ENV_NAME)
     if not venv_exists(venv_dir):
@@ -41,6 +71,10 @@ def main() -> None:
             print(f"Created {env_path} from {example_env} for local startup.")
         else:
             sys.exit(f"{env_path} not found and no .env.local.example present.")
+
+    _set_windows_symlink_defenses()
+    _ensure_home_dir_env()
+    _set_hf_home()
 
     venv_py = venv_python(venv_dir)
     cmd = [

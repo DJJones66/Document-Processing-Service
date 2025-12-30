@@ -1,5 +1,6 @@
 import logging
 import os
+from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.base_models import InputFormat
@@ -20,6 +21,7 @@ class DoclingModelManager:
     # Default models used by Docling
     REQUIRED_MODELS = [
         settings.DOCLING_MODEL_NAME,
+        "ds4sd/docling-models",
     ]
     
     def __init__(self, logger: logging.Logger):
@@ -35,6 +37,10 @@ class DoclingModelManager:
             if os.name == 'nt':  # Windows
                 os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
                 os.environ['HF_HUB_DISABLE_SYMLINKS'] = '1'
+                if not os.environ.get("HF_HOME"):
+                    hf_home = Path(os.environ.get("USERPROFILE") or os.environ.get("HOME") or Path.cwd()) / ".hf"
+                    os.environ["HF_HOME"] = str(hf_home)
+                os.environ.setdefault("HF_HUB_CACHE", str(Path(os.environ["HF_HOME"]) / "hub"))
                 # Force huggingface_hub to not use symlinks
                 try:
                     from huggingface_hub import constants
