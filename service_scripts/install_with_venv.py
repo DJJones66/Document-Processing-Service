@@ -74,6 +74,27 @@ def _preload_docling_model_windows(venv_py: Path) -> None:
     except subprocess.CalledProcessError as exc:
         print(f"Warning: Docling model preload failed (will retry at runtime): {exc}")
 
+def _preload_docling_model_macos(venv_py: Path) -> None:
+    if sys.platform != "darwin":
+        return
+    model_name = _resolve_docling_model_name()
+    if not model_name:
+        return
+    cmd = [
+        str(venv_py),
+        "-c",
+        (
+            "from huggingface_hub import snapshot_download;"
+            "snapshot_download(%r)"
+        )
+        % model_name,
+    ]
+    try:
+        print(f"Preloading Docling model on macOS: {model_name}")
+        subprocess.check_call(cmd, cwd=REPO_ROOT, env=os.environ.copy())
+    except subprocess.CalledProcessError as exc:
+        print(f"Warning: Docling model preload failed (will retry at runtime): {exc}")
+
 from venv_utils import DEFAULT_VENV_DIR, REPO_ROOT, venv_exists, venv_python
 
 
@@ -141,6 +162,7 @@ def main() -> None:
     _install_requirements(venv_py, requirements, torch_index)
 
     _preload_docling_model_windows(venv_py)
+    _preload_docling_model_macos(venv_py)
 
     print("\nDependencies installed into the venv.")
 

@@ -14,7 +14,7 @@
    - Uses `VENV_PATH` (default: `.venv`) and respects `PYTHON_BIN`.
 2. Install dependencies:
    - `service_scripts/mac_install.sh`
-   - Runs `service_scripts/install_with_venv.py` inside the venv.
+   - Runs `service_scripts/install_with_venv.py` inside the venv and preloads the Docling model from `DOCLING_MODEL_NAME` (macOS/Windows).
 3. Start the service:
    - `service_scripts/mac_start.sh`
    - Uses `API_HOST`, `API_PORT`, and `UVICORN_RELOAD` from the environment.
@@ -41,5 +41,6 @@
 ```
 
 ## Notes From mac_system_test
-- First run downloads Docling models from Hugging Face; expect extra startup time and network usage.
+- First install downloads the Docling model from Hugging Face; expect extra install time and network usage.
+- The Docling runtime may still download additional assets (for example `ds4sd/docling-models`) on first start.
 - The restart log may show a `multiprocessing/resource_tracker` leaked semaphore warning on shutdown; test still passes and the service stops cleanly.
